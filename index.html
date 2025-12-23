@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Platform - Barcha AI Vositalari</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #6c63ff;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 99, 255, 0.3);
+        }
+        
+        .tab-content {
+            background-color: white;
+            border-radius: 0 0 12px 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--gray-color);
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: var(--primary-color);
+            background-color: rgba(78, 84, 200, 0.05);
+        }
+        
+        .nav-tabs .nav-link.active {
+            background-color: white;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+        }
+        
+        .result-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .language-badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0 3px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background-color: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+        
+        .chat-user {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+        
+        .chat-ai {
+            background-color: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 2px;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .custom-file-label {
+            display: block;
+            padding: 0.75rem;
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-file-label:hover {
+            background-color: #e9ecef;
+            border-color: var(--primary-color);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            color: var(--gray-color);
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .sample-prompt {
+            transition: all 0.3s ease;
+        }
+        
+        .sample-prompt:hover {
+            transform: translateX(5px);
+            background-color: rgba(78, 84, 200, 0.1);
+        }
+        
+        .tool-tip {
+            position: relative;
+            cursor: help;
+        }
+        
+        .tool-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .tab-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-robot me-2"></i>AI Platform
+            </a>
+            
+            <div class="d-flex align-items-center">
+                <div class="me-3 d-none d-md-block">
+                    <span class="status-indicator status-online"></span>
+                    <span id="connection-status" class="text-muted">Ulanish...</span>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-1"></i> O'zbek
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                        <li><a class="dropdown-item" href="#" data-lang="uz">O'zbekcha</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="ru">Русский</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container my-4">
+        <!-- Header Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3" style="color: var(--primary-color);">
+                <i class="fas fa-brain me-2"></i>AI Platform
+            </h1>
+            <p class="lead text-muted">
+                Videodan matnga, nutqdan matnga va barcha AI vositalari bir joyda
+            </p>
+            <div class="d-flex justify-content-center flex-wrap gap-2 mt-3">
+                <span class="language-badge"><i class="fas fa-video me-1"></i> Video → Matn</span>
+                <span class="language-badge"><i class="fas fa-microphone me-1"></i> Nutq → Matn</span>
+                <span class="language-badge"><i class="fas fa-volume-up me-1"></i> Matn → Nutq</span>
+                <span class="language-badge"><i class="fas fa-file-alt me-1"></i> Hujjat Tahlili</span>
+                <span class="language-badge"><i class="fas fa-robot me-1"></i> AI Vositalari</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="mb-0" id="progress-message">Tayyor</h6>
+                            <span id="progress-percentage" class="fw-bold">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <div class="mt-2 small text-muted" id="progress-details">
+                            WebSocket orqali real vaqtda jarayonni kuzating
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Tabs -->
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="video-tab" data-bs-toggle="tab" data-bs-target="#video-pane" type="button" role="tab">
+                    <i class="fas fa-video me-2"></i>Video → Matn
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio-pane" type="button" role="tab">
+                    <i class="fas fa-microphone me-2"></i>Nutq → Matn
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tts-tab" data-bs-toggle="tab" data-bs-target="#tts-pane" type="button" role="tab">
+                    <i class="fas fa-volume-up me-2"></i>Matn → Nutq
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="document-tab" data-bs-toggle="tab" data-bs-target="#document-pane" type="button" role="tab">
+                    <i class="fas fa-file-alt me-2"></i>Hujjat Tahlili
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ai-tab" data-bs-toggle="tab" data-bs-target="#ai-pane" type="button" role="tab">
+                    <i class="fas fa-robot me-2"></i>AI Vositalari
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="stego-tab" data-bs-toggle="tab" data-bs-target="#stego-pane" type="button" role="tab">
+                    <i class="fas fa-user-secret me-2"></i>Stenografiya
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="llm-tab" data-bs-toggle="tab" data-bs-target="#llm-pane" type="button" role="tab">
+                    <i class="fas fa-comments me-2"></i>O'zbek LLM
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="mainTabsContent">
+            
+            <!-- 🎥 Video → Matn Tab -->
+            <div class="tab-pane fade show active" id="video-pane" role="tabpanel" aria-labelledby="video-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-video me-2"></i>Video Yuklash va Sozlashlar</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">Videoni matnga aylantiring va 3 tilda tarjima qiling</p>
+                                
+                                <form id="videoForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Video Fayl</label>
+                                        <div class="file-input-wrapper">
+                                            <input type="file" class="form-control" id="videoFile" accept="video/*" required>
+                                            <div class="custom-file-label">
+                                                <div class="upload-icon">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                </div>
+                                                <div id="videoFileName">Video faylni tanlang yoki bu yerga torting</div>
+                                                <small class="text-muted">MP4, AVI, MOV, MKV (maks. 500MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Manba Til</label>
+                                            <select class="form-select" id="sourceLang">
+                                                <option value="auto">Avto aniqlash</option>
+                                                <option value="uz">O'zbekcha</option>
+                                                <option value="en">Inglizcha</option>
+                                                <option value="ru">Ruscha</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Chiqish Formati</label>
+                                            <select class="form-select" id="outputFormat">
+                                                <option value="txt">Matn fayli (.txt)</option>
+                                                <option value="json">JSON fayli</option>
+                                                <option value="docx">Word hujjati</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Tarjima Tillari</label>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="uz" id="langUz" checked>
+                                                    <label class="form-check-label" for="langUz">
+                                                        <i class="fas fa-language me-1"></i> O'zbekcha
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="en" id="langEn" checked>
+                                                    <label class="form-check-label" for="langEn">
+                                                        <i class="fas fa-language me-1"></i> Inglizcha
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="ru" id="langRu" checked>
+                                                    <label class="form-check-label" for="langRu">
+                                                        <i class="fas fa-language me-1"></i> Ruscha
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-play me-2"></i>Videoni Qayta Ishla
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="clearVideoForm">
+                                            <i class="fas fa-eraser me-2"></i>Tozalash
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Natijalar</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="copyVideoResults">
+                                        <i class="fas fa-copy me-1"></i>Nusxa
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="downloadVideoResults">
+                                        <i class="fas fa-download me-1"></i>Yuklab olish
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="videoResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-video-slash feature-icon"></i>
+                                        <h5>Hech qanday natija yo'q</h5>
+                                        <p>Videoni yuklang va "Videoni Qayta Ishla" tugmasini bosing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🎧 Audio → Matn Tab -->
+            <div class="tab-pane fade" id="audio-pane" role="tabpanel" aria-labelledby="audio-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-microphone me-2"></i>Audio Yuklash</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">Audio fayllarni yuqori aniqlikda matnga aylantiring</p>
+                                
+                                <form id="audioForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Audio Fayl</label>
+                                        <div class="file-input-wrapper">
+                                            <input type="file" class="form-control" id="audioFile" accept="audio/*" required>
+                                            <div class="custom-file-label">
+                                                <div class="upload-icon">
+                                                    <i class="fas fa-file-audio"></i>
+                                                </div>
+                                                <div id="audioFileName">Audio faylni tanlang yoki bu yerga torting</div>
+                                                <small class="text-muted">MP3, WAV, M4A, OGG (maks. 100MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Audio Tili</label>
+                                        <select class="form-select" id="audioLanguage">
+                                            <option value="auto">Avto aniqlash</option>
+                                            <option value="uz-UZ">O'zbekcha</option>
+                                            <option value="en-US">Inglizcha (AQSH)</option>
+                                            <option value="ru-RU">Ruscha</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Transkripsiya Metodi</label>
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="transcriptionMethod" id="methodWhisper" value="whisper" checked>
+                                                <label class="form-check-label" for="methodWhisper">Whisper (Aniq)</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="transcriptionMethod" id="methodGoogle" value="google">
+                                                <label class="form-check-label" for="methodGoogle">Google (Tez)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-wave-square me-2"></i>Transkripsiya Qilish
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Transkripsiya Natijalari</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="copyAudioResults">
+                                        <i class="fas fa-copy me-1"></i>Nusxa
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="downloadAudioResults">
+                                        <i class="fas fa-download me-1"></i>Yuklab olish
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="audioResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-volume-mute feature-icon"></i>
+                                        <h5>Hech qanday natija yo'q</h5>
+                                        <p>Audio faylni yuklang va "Transkripsiya Qilish" tugmasini bosing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🗣 Matn → Nutq Tab -->
+            <div class="tab-pane fade" id="tts-pane" role="tabpanel" aria-labelledby="tts-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-volume-up me-2"></i>Matn Kiriting</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">Matnni jonli ovozga aylantiring</p>
+                                
+                                <form id="ttsForm">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Matn</label>
+                                        <textarea class="form-control" id="ttsText" rows="6" placeholder="Bu yerga ovozga aylantirmoqchi bo'lgan matningizni kiriting..." required></textarea>
+                                        <div class="form-text">
+                                            <span id="ttsCharCount">0</span> / 5000 belgi
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Til</label>
+                                            <select class="form-select" id="ttsLanguage">
+                                                <option value="uz">O'zbekcha</option>
+                                                <option value="en">Inglizcha</option>
+                                                <option value="ru">Ruscha</option>
+                                                <option value="tr">Turkcha</option>
+                                                <option value="ar">Arabcha</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label fw-bold">Ovoz Tezligi</label>
+                                            <select class="form-select" id="ttsSpeed">
+                                                <option value="normal">O'rtacha</option>
+                                                <option value="slow">Sekin</option>
+                                                <option value="fast">Tez</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-play-circle me-2"></i>Ovozga Aylantirish
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="clearTtsForm">
+                                            <i class="fas fa-eraser me-2"></i>Tozalash
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-music me-2"></i>Audio Natija</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="ttsResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-volume-down feature-icon"></i>
+                                        <h5>Hech qanday audio yo'q</h5>
+                                        <p>Matnni kiriting va "Ovozga Aylantirish" tugmasini bosing</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4" id="ttsAudioPlayer" style="display: none;">
+                                    <audio id="ttsAudio" controls class="w-100 mb-3"></audio>
+                                    <div class="btn-group">
+                                        <button class="btn btn-outline-primary" id="downloadTtsAudio">
+                                            <i class="fas fa-download me-1"></i>Audio faylni yuklab olish
+                                        </button>
+                                        <button class="btn btn-outline-success" id="shareTtsAudio">
+                                            <i class="fas fa-share-alt me-1"></i>Ulashish
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 📄 Hujjat Tahlili Tab -->
+            <div class="tab-pane fade" id="document-pane" role="tabpanel" aria-labelledby="document-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Hujjat Yuklash</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">PDF, DOCX, TXT fayllarni tez va aniq tahlil qilish</p>
+                                
+                                <form id="documentForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Hujjat Fayli</label>
+                                        <div class="file-input-wrapper">
+                                            <input type="file" class="form-control" id="documentFile" accept=".pdf,.docx,.txt,.doc" required>
+                                            <div class="custom-file-label">
+                                                <div class="upload-icon">
+                                                    <i class="fas fa-file-upload"></i>
+                                                </div>
+                                                <div id="documentFileName">Hujjat faylni tanlang yoki bu yerga torting</div>
+                                                <small class="text-muted">PDF, DOCX, TXT, DOC (maks. 50MB)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Tahlil Turi</label>
+                                        <select class="form-select" id="documentAnalysisType">
+                                            <option value="summary">Qisqartirish</option>
+                                            <option value="translation">Tarjima</option>
+                                            <option value="stats">Statistika</option>
+                                            <option value="keywords">Kalit so'zlar</option>
+                                            <option value="sentiment">Sentiment tahlili</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3" id="translationOptions" style="display: none;">
+                                        <label class="form-label fw-bold">Tarjima Tillari</label>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="uz" id="docLangUz" checked>
+                                                    <label class="form-check-label" for="docLangUz">O'zbekcha</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="en" id="docLangEn" checked>
+                                                    <label class="form-check-label" for="docLangEn">Inglizcha</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="ru" id="docLangRu" checked>
+                                                    <label class="form-check-label" for="docLangRu">Ruscha</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-chart-bar me-2"></i>Tahlil Qilish
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Tahlil Natijalari</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="copyDocumentResults">
+                                        <i class="fas fa-copy me-1"></i>Nusxa
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="exportDocumentResults">
+                                        <i class="fas fa-file-export me-1"></i>Eksport
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="documentResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-file-contract feature-icon"></i>
+                                        <h5>Hech qanday tahlil yo'q</h5>
+                                        <p>Hujjatni yuklang va "Tahlil Qilish" tugmasini bosing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🧠 AI Vositalari Tab -->
+            <div class="tab-pane fade" id="ai-pane" role="tabpanel" aria-labelledby="ai-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-robot me-2"></i>AI Vositalari</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">Turli AI vositalaridan foydalaning</p>
+                                
+                                <form id="aiToolsForm">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Matn</label>
+                                        <textarea class="form-control" id="aiToolsText" rows="6" placeholder="Bu yerga qayta ishlamoqchi bo'lgan matningizni kiriting..." required></textarea>
+                                        <div class="form-text">
+                                            <span id="aiToolsCharCount">0</span> / 10000 belgi
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Vositani Tanlang</label>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check card p-3">
+                                                    <input class="form-check-input" type="radio" name="aiTool" id="toolSummarize" value="summarize" checked>
+                                                    <label class="form-check-label fw-bold" for="toolSummarize">
+                                                        <i class="fas fa-compress-alt me-2"></i>Qisqartirish
+                                                    </label>
+                                                    <small class="text-muted">Uzun matnni qisqartirish</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check card p-3">
+                                                    <input class="form-check-input" type="radio" name="aiTool" id="toolSentiment" value="sentiment">
+                                                    <label class="form-check-label fw-bold" for="toolSentiment">
+                                                        <i class="fas fa-smile me-2"></i>Sentiment Tahlili
+                                                    </label>
+                                                    <small class="text-muted">Matn kayfiyatini aniqlash</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check card p-3">
+                                                    <input class="form-check-input" type="radio" name="aiTool" id="toolKeywords" value="keywords">
+                                                    <label class="form-check-label fw-bold" for="toolKeywords">
+                                                        <i class="fas fa-key me-2"></i>Kalit So'zlar
+                                                    </label>
+                                                    <small class="text-muted">Asosiy kalit so'zlarni ajratish</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check card p-3">
+                                                    <input class="form-check-input" type="radio" name="aiTool" id="toolTranslate" value="translate">
+                                                    <label class="form-check-label fw-bold" for="toolTranslate">
+                                                        <i class="fas fa-language me-2"></i>Tarjima
+                                                    </label>
+                                                    <small class="text-muted">Matnni tarjima qilish</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3" id="aiTranslateOptions" style="display: none;">
+                                        <label class="form-label fw-bold">Tarjima Qilish Tillari</label>
+                                        <select class="form-select" id="aiTargetLanguage">
+                                            <option value="uz">O'zbekcha</option>
+                                            <option value="en">Inglizcha</option>
+                                            <option value="ru">Ruscha</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-magic me-2"></i>Qo'llash
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="clearAiToolsForm">
+                                            <i class="fas fa-eraser me-2"></i>Tozalash
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Natijalar</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="copyAiToolsResults">
+                                        <i class="fas fa-copy me-1"></i>Nusxa
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="saveAiToolsResults">
+                                        <i class="fas fa-save me-1"></i>Saqlash
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="aiToolsResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-tools feature-icon"></i>
+                                        <h5>Hech qanday natija yo'q</h5>
+                                        <p>Matnni kiriting, vosita tanlang va "Qo'llash" tugmasini bosing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🕵️ Stenografiya Tab -->
+            <div class="tab-pane fade" id="stego-pane" role="tabpanel" aria-labelledby="stego-tab">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-user-secret me-2"></i>Stenografiya</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-3">Matnni rasm ichiga yashirish va qayta olish</p>
+                                
+                                <ul class="nav nav-pills mb-3" id="stegoTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="encode-tab" data-bs-toggle="pill" data-bs-target="#encode-pane" type="button">
+                                            <i class="fas fa-lock me-1"></i>Matnni Yashirish
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="decode-tab" data-bs-toggle="pill" data-bs-target="#decode-pane" type="button">
+                                            <i class="fas fa-unlock me-1"></i>Matnni Olish
+                                        </button>
+                                    </li>
+                                </ul>
+                                
+                                <div class="tab-content">
+                                    <!-- Encode Tab -->
+                                    <div class="tab-pane fade show active" id="encode-pane" role="tabpanel">
+                                        <form id="encodeForm" enctype="multipart/form-data">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Asl Rasm</label>
+                                                <div class="file-input-wrapper">
+                                                    <input type="file" class="form-control" id="encodeImage" accept="image/*" required>
+                                                    <div class="custom-file-label">
+                                                        <div class="upload-icon">
+                                                            <i class="fas fa-image"></i>
+                                                        </div>
+                                                        <div id="encodeImageName">Rasm faylni tanlang</div>
+                                                        <small class="text-muted">PNG, JPG, JPEG (maks. 10MB)</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Yashiriladigan Matn</label>
+                                                <textarea class="form-control" id="encodeText" rows="4" placeholder="Rasm ichiga yashirmoqchi bo'lgan maxfiy matningizni kiriting..." required></textarea>
+                                                <div class="form-text">
+                                                    <span id="encodeCharCount">0</span> / 1000 belgi
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Shifrlash Kaliti (ixtiyoriy)</label>
+                                                <input type="password" class="form-control" id="encodePassword" placeholder="Qo'shimcha xavfsizlik uchun kalit">
+                                            </div>
+                                            
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    <i class="fas fa-lock me-2"></i>Matnni Yashirish
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Decode Tab -->
+                                    <div class="tab-pane fade" id="decode-pane" role="tabpanel">
+                                        <form id="decodeForm" enctype="multipart/form-data">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Rasm Fayli</label>
+                                                <div class="file-input-wrapper">
+                                                    <input type="file" class="form-control" id="decodeImage" accept="image/*" required>
+                                                    <div class="custom-file-label">
+                                                        <div class="upload-icon">
+                                                            <i class="fas fa-file-image"></i>
+                                                        </div>
+                                                        <div id="decodeImageName">Rasm faylni tanlang</div>
+                                                        <small class="text-muted">PNG, JPG, JPEG (maks. 10MB)</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label class="form-label fw-bold">Shifrlash Kaliti (agar bo'lsa)</label>
+                                                <input type="password" class="form-control" id="decodePassword" placeholder="Yashirishda ishlatilgan kalitni kiriting">
+                                            </div>
+                                            
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-primary btn-lg">
+                                                    <i class="fas fa-unlock me-2"></i>Matnni Ochish
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-image me-2"></i>Natijalar</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="copyStegoResults">
+                                        <i class="fas fa-copy me-1"></i>Nusxa
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="downloadStegoImage">
+                                        <i class="fas fa-download me-1"></i>Rasmni yuklab olish
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="stegoResults">
+                                    <div class="text-center text-muted py-5">
+                                        <i class="fas fa-user-secret feature-icon"></i>
+                                        <h5>Hech qanday natija yo'q</h5>
+                                        <p>Rasm va matnni yuklang yoki faqat rasmni yuklang</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-4" id="stegoImageContainer" style="display: none;">
+                                    <h6>Natija:</h6>
+                                    <img id="stegoImage" class="img-fluid rounded border" style="max-height: 200px;">
+                                    <div class="mt-3" id="stegoTextResult"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 🇺🇿 O'zbek LLM Tab -->
+            <div class="tab-pane fade" id="llm-pane" role="tabpanel" aria-labelledby="llm-tab">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0"><i class="fas fa-comments me-2"></i>Suhbat</h5>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="clearChat">
+                                        <i class="fas fa-trash me-1"></i>Suhbatni tozalash
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-success" id="exportChat">
+                                        <i class="fas fa-download me-1"></i>Suhbatni saqlash
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chat-container border rounded p-3 mb-3" style="height: 400px; overflow-y: auto;" id="chatHistory">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <strong>AI Platform:</strong> Salom! Men sizga qanday yordam bera olaman? O'zbek tilida istalgan savolingizni bering.
+                                    </div>
+                                </div>
+                                
+                                <form id="llmForm">
+                                    <div class="input-group">
+                                        <textarea class="form-control" id="llmPrompt" placeholder="Savolingizni kiriting..." rows="2" style="resize: none;"></textarea>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text mt-1">
+                                        <span id="llmCharCount">0</span> / 500 belgi
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Namuna Savollar</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2 mb-3">
+                                    <button class="btn btn-outline-primary text-start sample-prompt" data-prompt="Salom, isming nima?">
+                                        <i class="fas fa-question-circle me-2"></i>Salom, isming nima?
+                                    </button>
+                                    <button class="btn btn-outline-primary text-start sample-prompt" data-prompt="Video qanday matnga aylantiriladi?">
+                                        <i class="fas fa-video me-2"></i>Video qanday matnga aylantiriladi?
+                                    </button>
+                                    <button class="btn btn-outline-primary text-start sample-prompt" data-prompt="Men uchun bir she'r yozib ber">
+                                        <i class="fas fa-pen-fancy me-2"></i>Men uchun bir she'r yozib ber
+                                    </button>
+                                    <button class="btn btn-outline-primary text-start sample-prompt" data-prompt="Sunnat to'g'risida ma'lumot ber">
+                                        <i class="fas fa-book me-2"></i>Sunnat to'g'risida ma'lumot ber
+                                    </button>
+                                    <button class="btn btn-outline-primary text-start sample-prompt" data-prompt="AI nima?">
+                                        <i class="fas fa-robot me-2"></i>AI nima?
+                                    </button>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h6><i class="fas fa-cogs me-2"></i>Sozlashlar</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">Javob Uzunligi</label>
+                                        <input type="range" class="form-range" id="responseLength" min="50" max="500" value="150">
+                                        <div class="d-flex justify-content-between small">
+                                            <span>Qisqa</span>
+                                            <span id="lengthValue">150 belgi</span>
+                                            <span>Uzun</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Harorat (yaratuvchanlik)</label>
+                                        <input type="range" class="form-range" id="temperature" min="0.1" max="1.0" step="0.1" value="0.7">
+                                        <div class="d-flex justify-content-between small">
+                                            <span>Aniq</span>
+                                            <span id="tempValue">0.7</span>
+                                            <span>Yaratuvchan</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-5 pt-4 border-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-robot me-2"></i>AI Platform</h5>
+                    <p class="text-muted">
+                        Videodan matnga, nutqdan matnga va barcha AI vositalari bir joyda.
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Funksiyalar</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#video-pane" class="text-decoration-none text-muted">Video → Matn</a></li>
+                        <li><a href="#audio-pane" class="text-decoration-none text-muted">Nutq → Matn</a></li>
+                        <li><a href="#tts-pane" class="text-decoration-none text-muted">Matn → Nutq</a></li>
+                        <li><a href="#document-pane" class="text-decoration-none text-muted">Hujjat Tahlili</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Texnologiyalar</h6>
+                    <ul class="list-unstyled">
+                        <li><span class="text-muted">Python Flask</span></li>
+                        <li><span class="text-muted">WebSocket</span></li>
+                        <li><span class="text-muted">Whisper AI</span></li>
+                        <li><span class="text-muted">Bootstrap 5</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top">
+                <p class="text-muted mb-0">
+                    © 2024 AI Platform. Barcha huquqlar himoyalangan.
+                    <br>
+                    <small>Python + Flask + AI Texnologiyalari</small>
+                    <small>Yaratuvchi IsMoiL Sheraliyev ®️</small>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Socket.IO Client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script>
+        // Global variables
+        let currentAudioUrl = null;
+        let chatMessages = [];
+        
+        // Initialize WebSocket connection
+        const socket = io();
+        
+        // WebSocket event handlers
+        socket.on('connect', function() {
+            document.getElementById('connection-status').textContent = 'Ulangan';
+            showNotification('WebSocket muvaffaqiyatli ulandi', 'success');
+        });
+        
+        socket.on('disconnect', function() {
+            document.getElementById('connection-status').textContent = 'Uzilgan';
+            showNotification('WebSocket ulanishi uzildi', 'warning');
+        });
+        
+        socket.on('progress', function(data) {
+            updateProgress(data.progress, data.message, data.task);
+        });
+        
+        // Update progress bar
+        function updateProgress(progress, message, task = '') {
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+            const progressMessage = document.getElementById('progress-message');
+            const progressDetails = document.getElementById('progress-details');
+            
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${progress}%`;
+            progressMessage.textContent = message || 'Jarayon...';
+            
+            if (task) {
+                progressDetails.textContent = `Vazifa: ${getTaskName(task)}`;
+            }
+            
+            if (progress === 100) {
+                setTimeout(() => {
+                    progressBar.style.width = '0%';
+                    progressPercentage.textContent = '0%';
+                    progressMessage.textContent = 'Tayyor';
+                    progressDetails.textContent = 'WebSocket orqali real vaqtda jarayonni kuzating';
+                }, 2000);
+            }
+        }
+        
+        // Get task name for display
+        function getTaskName(task) {
+            const tasks = {
+                'video_to_text': 'Video → Matn',
+                'audio_to_text': 'Nutq → Matn',
+                'document_analysis': 'Hujjat Tahlili',
+                'uzbek_llm': 'Oʻzbek LLM'
+            };
+            return tasks[task] || task;
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const alertClass = {
+                'success': 'alert-success',
+                'warning': 'alert-warning',
+                'error': 'alert-danger',
+                'info': 'alert-info'
+            }[type];
+            
+            const notification = document.createElement('div');
+            notification.className = `alert ${alertClass} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+        
+        // File input display handlers
+        document.getElementById('videoFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Video faylni tanlang yoki bu yerga torting';
+            document.getElementById('videoFileName').textContent = fileName;
+        });
+        
+        document.getElementById('audioFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Audio faylni tanlang yoki bu yerga torting';
+            document.getElementById('audioFileName').textContent = fileName;
+        });
+        
+        document.getElementById('documentFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Hujjat faylni tanlang yoki bu yerga torting';
+            document.getElementById('documentFileName').textContent = fileName;
+        });
+        
+        document.getElementById('encodeImage').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Rasm faylni tanlang';
+            document.getElementById('encodeImageName').textContent = fileName;
+        });
+        
+        document.getElementById('decodeImage').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Rasm faylni tanlang';
+            document.getElementById('decodeImageName').textContent = fileName;
+        });
+        
+        // Character counters
+        document.getElementById('ttsText').addEventListener('input', function(e) {
+            document.getElementById('ttsCharCount').textContent = e.target.value.length;
+        });
+        
+        document.getElementById('aiToolsText').addEventListener('input', function(e) {
+            document.getElementById('aiToolsCharCount').textContent = e.target.value.length;
+        });
+        
+        document.getElementById('encodeText').addEventListener('input', function(e) {
+            document.getElementById('encodeCharCount').textContent = e.target.value.length;
+        });
+        
+        document.getElementById('llmPrompt').addEventListener('input', function(e) {
+            document.getElementById('llmCharCount').textContent = e.target.value.length;
+        });
+        
+        // Range value displays
+        document.getElementById('responseLength').addEventListener('input', function(e) {
+            document.getElementById('lengthValue').textContent = `${e.target.value} belgi`;
+        });
+        
+        document.getElementById('temperature').addEventListener('input', function(e) {
+            document.getElementById('tempValue').textContent = e.target.value;
+        });
+        
+        // Form submission handlers
+        
+        // Video to Text form
+        document.getElementById('videoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const videoFile = document.getElementById('videoFile').files[0];
+            
+            if (!videoFile) {
+                showNotification('Iltimos, video faylni tanlang', 'warning');
+                return;
+            }
+            
+            formData.append('file', videoFile);
+            formData.append('source_lang', document.getElementById('sourceLang').value);
+            
+            // Get selected languages
+            const selectedLangs = [];
+            if (document.getElementById('langUz').checked) selectedLangs.push('uz');
+            if (document.getElementById('langEn').checked) selectedLangs.push('en');
+            if (document.getElementById('langRu').checked) selectedLangs.push('ru');
+            
+            formData.append('target_langs', selectedLangs.join(','));
+            
+            try {
+                const response = await fetch('/api/video-to-text', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayVideoResults(result);
+                    showNotification('Video muvaffaqiyatli qayta ishlandi', 'success');
+                } else {
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Display video results
+        function displayVideoResults(result) {
+            let html = `
+                <h6>Asl Matn:</h6>
+                <div class="result-box">${result.original_text || 'Matn topilmadi'}</div>
+            `;
+            
+            if (result.translations) {
+                html += `<h6 class="mt-3">Tarjimalar:</h6>`;
+                
+                for (const [lang, text] of Object.entries(result.translations)) {
+                    const langName = {
+                        'uz': 'Oʻzbekcha',
+                        'en': 'Inglizcha',
+                        'ru': 'Ruscha'
+                    }[lang] || lang;
+                    
+                    html += `
+                        <h6 class="mt-2">${langName}:</h6>
+                        <div class="result-box">${text}</div>
+                    `;
+                }
+            }
+            
+            document.getElementById('videoResults').innerHTML = html;
+        }
+        
+        // Clear video form
+        document.getElementById('clearVideoForm').addEventListener('click', function() {
+            document.getElementById('videoForm').reset();
+            document.getElementById('videoFileName').textContent = 'Video faylni tanlang yoki bu yerga torting';
+            document.getElementById('videoResults').innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-video-slash feature-icon"></i>
+                    <h5>Hech qanday natija yo'q</h5>
+                    <p>Videoni yuklang va "Videoni Qayta Ishla" tugmasini bosing</p>
+                </div>
+            `;
+        });
+        
+        // Copy video results
+        document.getElementById('copyVideoResults').addEventListener('click', function() {
+            const text = extractTextFromResults('videoResults');
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Natijalar nusxalandi', 'success');
+            });
+        });
+        
+        // Download video results
+        document.getElementById('downloadVideoResults').addEventListener('click', function() {
+            const text = extractTextFromResults('videoResults');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'video_transkripsiya.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        // Helper function to extract text from results
+        function extractTextFromResults(elementId) {
+            const element = document.getElementById(elementId);
+            let text = '';
+            
+            // Extract text from h6 and result-box elements
+            const headers = element.querySelectorAll('h6');
+            const boxes = element.querySelectorAll('.result-box');
+            
+            for (let i = 0; i < headers.length; i++) {
+                text += headers[i].textContent + '\n';
+                if (boxes[i]) {
+                    text += boxes[i].textContent + '\n\n';
+                }
+            }
+            
+            return text.trim();
+        }
+        
+        // Audio to Text form
+        document.getElementById('audioForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const audioFile = document.getElementById('audioFile').files[0];
+            
+            if (!audioFile) {
+                showNotification('Iltimos, audio faylni tanlang', 'warning');
+                return;
+            }
+            
+            formData.append('file', audioFile);
+            formData.append('language', document.getElementById('audioLanguage').value);
+            
+            const method = document.querySelector('input[name="transcriptionMethod"]:checked').value;
+            formData.append('method', method);
+            
+            try {
+                const response = await fetch('/api/audio-to-text', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayAudioResults(result);
+                    showNotification('Audio muvaffaqiyatli transkripsiya qilindi', 'success');
+                } else {
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Display audio results
+        function displayAudioResults(result) {
+            let html = `
+                <h6>Transkripsiya Natijasi:</h6>
+                <div class="result-box">${result.text || 'Matn topilmadi'}</div>
+            `;
+            
+            if (result.confidence) {
+                html += `<p class="mt-2"><small><strong>Aniqlik:</strong> ${result.confidence}</small></p>`;
+            }
+            
+            if (result.language) {
+                html += `<p class="mt-1"><small><strong>Til:</strong> ${result.language}</small></p>`;
+            }
+            
+            document.getElementById('audioResults').innerHTML = html;
+        }
+        
+        // Copy audio results
+        document.getElementById('copyAudioResults').addEventListener('click', function() {
+            const text = extractTextFromResults('audioResults');
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Natijalar nusxalandi', 'success');
+            });
+        });
+        
+        // Download audio results
+        document.getElementById('downloadAudioResults').addEventListener('click', function() {
+            const text = extractTextFromResults('audioResults');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'audio_transkripsiya.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        // Text to Speech form
+        document.getElementById('ttsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const text = document.getElementById('ttsText').value.trim();
+            
+            if (!text) {
+                showNotification('Iltimos, matn kiriting', 'warning');
+                return;
+            }
+            
+            if (text.length > 5000) {
+                showNotification('Matn juda uzun (maks. 5000 belgi)', 'warning');
+                return;
+            }
+            
+            const language = document.getElementById('ttsLanguage').value;
+            const speed = document.getElementById('ttsSpeed').value;
+            
+            try {
+                const response = await fetch('/api/text-to-speech', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        language: language,
+                        speed: speed
+                    })
+                });
+                
+                if (response.ok) {
+                    const audioBlob = await response.blob();
+                    currentAudioUrl = URL.createObjectURL(audioBlob);
+                    
+                    const audioPlayer = document.getElementById('ttsAudio');
+                    audioPlayer.src = currentAudioUrl;
+                    
+                    document.getElementById('ttsAudioPlayer').style.display = 'block';
+                    
+                    document.getElementById('ttsResults').innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Audio fayl muvaffaqiyatli yaratildi. Quyidagi pleerdan tinglang.
+                        </div>
+                    `;
+                    
+                    showNotification('Audio muvaffaqiyatli yaratildi', 'success');
+                } else {
+                    const result = await response.json();
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Clear TTS form
+        document.getElementById('clearTtsForm').addEventListener('click', function() {
+            document.getElementById('ttsForm').reset();
+            document.getElementById('ttsCharCount').textContent = '0';
+            document.getElementById('ttsAudioPlayer').style.display = 'none';
+            document.getElementById('ttsResults').innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-volume-down feature-icon"></i>
+                    <h5>Hech qanday audio yo'q</h5>
+                    <p>Matnni kiriting va "Ovozga Aylantirish" tugmasini bosing</p>
+                </div>
+            `;
+        });
+        
+        // Download TTS audio
+        document.getElementById('downloadTtsAudio').addEventListener('click', function() {
+            if (currentAudioUrl) {
+                const a = document.createElement('a');
+                a.href = currentAudioUrl;
+                a.download = 'tts_audio.mp3';
+                a.click();
+                showNotification('Audio fayl yuklab olindi', 'success');
+            }
+        });
+        
+        // Share TTS audio
+        document.getElementById('shareTtsAudio').addEventListener('click', function() {
+            if (navigator.share && currentAudioUrl) {
+                navigator.share({
+                    title: 'AI Platform - TTS Audio',
+                    text: 'Matnni ovozga aylantirish natijasi',
+                    url: currentAudioUrl
+                });
+            } else {
+                showNotification('Brauzeringiz ulashishni qoʻllab-quvvatlamaydi', 'warning');
+            }
+        });
+        
+        // Document analysis type change
+        document.getElementById('documentAnalysisType').addEventListener('change', function(e) {
+            const translationOptions = document.getElementById('translationOptions');
+            translationOptions.style.display = e.target.value === 'translation' ? 'block' : 'none';
+        });
+        
+        // Document analysis form
+        document.getElementById('documentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const documentFile = document.getElementById('documentFile').files[0];
+            
+            if (!documentFile) {
+                showNotification('Iltimos, hujjat faylni tanlang', 'warning');
+                return;
+            }
+            
+            formData.append('file', documentFile);
+            formData.append('type', document.getElementById('documentAnalysisType').value);
+            
+            if (document.getElementById('documentAnalysisType').value === 'translation') {
+                const selectedLangs = [];
+                if (document.getElementById('docLangUz').checked) selectedLangs.push('uz');
+                if (document.getElementById('docLangEn').checked) selectedLangs.push('en');
+                if (document.getElementById('docLangRu').checked) selectedLangs.push('ru');
+                formData.append('target_langs', selectedLangs.join(','));
+            }
+            
+            try {
+                const response = await fetch('/api/analyze-document', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayDocumentResults(result);
+                    showNotification('Hujjat muvaffaqiyatli tahlil qilindi', 'success');
+                } else {
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Display document results
+        function displayDocumentResults(result) {
+            let html = `<h6>Tahlil Natijalari:</h6>`;
+            
+            if (result.analysis_type === 'summary') {
+                html += `
+                    <p><strong>Qisqartirilgan Matn:</strong></p>
+                    <div class="result-box">${result.summary || 'Mavjud emas'}</div>
+                `;
+            } else if (result.analysis_type === 'translation' && result.translations) {
+                html += `<p><strong>Tarjimalar:</strong></p>`;
+                for (const [lang, text] of Object.entries(result.translations)) {
+                    const langName = {
+                        'uz': 'Oʻzbekcha',
+                        'en': 'Inglizcha',
+                        'ru': 'Ruscha'
+                    }[lang] || lang;
+                    
+                    html += `
+                        <p class="mb-1"><strong>${langName}:</strong></p>
+                        <div class="result-box mb-2">${text}</div>
+                    `;
+                }
+            } else if (result.analysis_type === 'stats' && result.stats) {
+                html += `
+                    <p><strong>Statistika:</strong></p>
+                    <ul>
+                        <li>So'zlar soni: ${result.stats.word_count || 0}</li>
+                        <li>Gaplar soni: ${result.stats.sentence_count || 0}</li>
+                        <li>Belgilar soni: ${result.stats.character_count || 0}</li>
+                        <li>O'rtacha so'z uzunligi: ${(result.stats.average_word_length || 0).toFixed(2)}</li>
+                    </ul>
+                `;
+            } else if (result.analysis_type === 'keywords' && result.keywords) {
+                html += `<p><strong>Kalit So'zlar:</strong></p>`;
+                result.keywords.forEach(item => {
+                    html += `<span class="badge bg-primary me-1 mb-1">${item.word} (${item.count})</span>`;
+                });
+            }
+            
+            if (result.original_text) {
+                html += `
+                    <p class="mt-3"><strong>Namuna Matn (boshi):</strong></p>
+                    <div class="result-box">${result.original_text}</div>
+                `;
+            }
+            
+            document.getElementById('documentResults').innerHTML = html;
+        }
+        
+        // Copy document results
+        document.getElementById('copyDocumentResults').addEventListener('click', function() {
+            const text = extractTextFromResults('documentResults');
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Natijalar nusxalandi', 'success');
+            });
+        });
+        
+        // Export document results
+        document.getElementById('exportDocumentResults').addEventListener('click', function() {
+            const text = extractTextFromResults('documentResults');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hujjat_tahlili.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Natijalar yuklab olindi', 'success');
+        });
+        
+        // AI tools radio button change
+        document.querySelectorAll('input[name="aiTool"]').forEach(radio => {
+            radio.addEventListener('change', function(e) {
+                const translateOptions = document.getElementById('aiTranslateOptions');
+                translateOptions.style.display = e.target.value === 'translate' ? 'block' : 'none';
+            });
+        });
+        
+        // AI tools form
+        document.getElementById('aiToolsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const text = document.getElementById('aiToolsText').value.trim();
+            
+            if (!text) {
+                showNotification('Iltimos, matn kiriting', 'warning');
+                return;
+            }
+            
+            const tool = document.querySelector('input[name="aiTool"]:checked').value;
+            const data = {
+                text: text,
+                tool: tool
+            };
+            
+            if (tool === 'translate') {
+                data.target_language = document.getElementById('aiTargetLanguage').value;
+            }
+            
+            try {
+                const response = await fetch('/api/ai-tools', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    displayAiToolsResults(result, tool);
+                    showNotification('AI vositasi muvaffaqiyatli qoʻllandi', 'success');
+                } else {
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Display AI tools results
+        function displayAiToolsResults(result, tool) {
+            let html = `<h6>Natijalar:</h6>`;
+            
+            if (tool === 'summarize') {
+                html += `
+                    <p><strong>Qisqartirish darajasi:</strong> ${(result.compression_ratio * 100).toFixed(1)}%</p>
+                    <div class="result-box">${result.summary || 'Mavjud emas'}</div>
+                `;
+            } else if (tool === 'sentiment') {
+                let sentimentColor = 'info';
+                let sentimentIcon = 'fas fa-meh';
+                
+                if (result.sentiment === 'positive') {
+                    sentimentColor = 'success';
+                    sentimentIcon = 'fas fa-smile';
+                } else if (result.sentiment === 'negative') {
+                    sentimentColor = 'danger';
+                    sentimentIcon = 'fas fa-frown';
+                }
+                
+                html += `
+                    <div class="alert alert-${sentimentColor}">
+                        <i class="${sentimentIcon} me-2"></i>
+                        <strong>Sentiment:</strong> ${result.sentiment} 
+                        <span class="badge bg-${sentimentColor}">${result.score?.toFixed(2) || 0}</span>
+                    </div>
+                    <p><strong>Ijobiy so'zlar:</strong> ${result.positive_words || 0}</p>
+                    <p><strong>Salbiy so'zlar:</strong> ${result.negative_words || 0}</p>
+                `;
+            } else if (tool === 'keywords' && result.keywords) {
+                html += `
+                    <p><strong>Jami so'zlar:</strong> ${result.total_words || 0}</p>
+                    <p><strong>Takrorlanmas so'zlar:</strong> ${result.unique_words || 0}</p>
+                    <p class="mt-2"><strong>Kalit So'zlar:</strong></p>
+                    <div class="result-box">
+                `;
+                
+                result.keywords.forEach(item => {
+                    html += `<span class="badge bg-primary me-1 mb-1">${item.word} (${item.count})</span>`;
+                });
+                
+                html += `</div>`;
+            } else if (tool === 'translate' && result.translation) {
+                html += `
+                    <p><strong>Tarjima:</strong></p>
+                    <div class="result-box">${result.translation}</div>
+                `;
+            }
+            
+            document.getElementById('aiToolsResults').innerHTML = html;
+        }
+        
+        // Clear AI tools form
+        document.getElementById('clearAiToolsForm').addEventListener('click', function() {
+            document.getElementById('aiToolsForm').reset();
+            document.getElementById('aiToolsCharCount').textContent = '0';
+            document.getElementById('aiTranslateOptions').style.display = 'none';
+            document.getElementById('aiToolsResults').innerHTML = `
+                <div class="text-center text-muted py-5">
+                    <i class="fas fa-tools feature-icon"></i>
+                    <h5>Hech qanday natija yo'q</h5>
+                    <p>Matnni kiriting, vosita tanlang va "Qo'llash" tugmasini bosing</p>
+                </div>
+            `;
+        });
+        
+        // Copy AI tools results
+        document.getElementById('copyAiToolsResults').addEventListener('click', function() {
+            const text = extractTextFromResults('aiToolsResults');
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Natijalar nusxalandi', 'success');
+            });
+        });
+        
+        // Save AI tools results
+        document.getElementById('saveAiToolsResults').addEventListener('click', function() {
+            const text = extractTextFromResults('aiToolsResults');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ai_vosita_natijalari.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Natijalar saqlandi', 'success');
+        });
+        
+        // Steganography encode form
+        document.getElementById('encodeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const imageFile = document.getElementById('encodeImage').files[0];
+            const text = document.getElementById('encodeText').value.trim();
+            
+            if (!imageFile) {
+                showNotification('Iltimos, rasm faylni tanlang', 'warning');
+                return;
+            }
+            
+            if (!text) {
+                showNotification('Iltimos, yashiriladigan matn kiriting', 'warning');
+                return;
+            }
+            
+            if (text.length > 1000) {
+                showNotification('Matn juda uzun (maks. 1000 belgi)', 'warning');
+                return;
+            }
+            
+            formData.append('operation', 'encode');
+            formData.append('image', imageFile);
+            formData.append('text', text);
+            
+            const password = document.getElementById('encodePassword').value;
+            if (password) {
+                formData.append('password', password);
+            }
+            
+            try {
+                const response = await fetch('/api/steganography', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const imageBlob = await response.blob();
+                    const imageUrl = URL.createObjectURL(imageBlob);
+                    
+                    document.getElementById('stegoImage').src = imageUrl;
+                    document.getElementById('stegoImageContainer').style.display = 'block';
+                    
+                    document.getElementById('stegoResults').innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Matn muvaffaqiyatli yashirildi!
+                        </div>
+                    `;
+                    
+                    // Store URL for download
+                    window.stegoImageUrl = imageUrl;
+                    
+                    showNotification('Matn rasm ichiga yashirildi', 'success');
+                } else {
+                    const result = await response.json();
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Steganography decode form
+        document.getElementById('decodeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const imageFile = document.getElementById('decodeImage').files[0];
+            
+            if (!imageFile) {
+                showNotification('Iltimos, rasm faylni tanlang', 'warning');
+                return;
+            }
+            
+            formData.append('operation', 'decode');
+            formData.append('image', imageFile);
+            
+            const password = document.getElementById('decodePassword').value;
+            if (password) {
+                formData.append('password', password);
+            }
+            
+            try {
+                const response = await fetch('/api/steganography', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Show original image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('stegoImage').src = e.target.result;
+                    };
+                    reader.readAsDataURL(imageFile);
+                    
+                    document.getElementById('stegoImageContainer').style.display = 'block';
+                    
+                    document.getElementById('stegoResults').innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Matn muvaffaqiyatli o'qildi!
+                        </div>
+                    `;
+                    
+                    document.getElementById('stegoTextResult').innerHTML = `
+                        <p class="mt-3"><strong>Olingan Matn:</strong></p>
+                        <div class="result-box">${result.text || 'Matn topilmadi'}</div>
+                    `;
+                    
+                    showNotification("Matn rasm ichidan o'qildi", 'success');
+                } else {
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Copy steganography results
+        document.getElementById('copyStegoResults').addEventListener('click', function() {
+            const textResult = document.getElementById('stegoTextResult');
+            if (textResult && textResult.textContent.trim()) {
+                navigator.clipboard.writeText(textResult.textContent).then(() => {
+                    showNotification('Matn nusxalandi', 'success');
+                });
+            } else {
+                showNotification('Nusxalash uchun matn topilmadi', 'warning');
+            }
+        });
+        
+        // Download steganography image
+        document.getElementById('downloadStegoImage').addEventListener('click', function() {
+            if (window.stegoImageUrl) {
+                const a = document.createElement('a');
+                a.href = window.stegoImageUrl;
+                a.download = 'yashirilgan_matn.png';
+                a.click();
+                showNotification('Rasm yuklab olindi', 'success');
+            } else {
+                showNotification('Yuklash uchun rasm mavjud emas', 'warning');
+            }
+        });
+        
+        // Uzbek LLM form
+        document.getElementById('llmForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const prompt = document.getElementById('llmPrompt').value.trim();
+            
+            if (!prompt) {
+                showNotification('Iltimos, savol kiriting', 'warning');
+                return;
+            }
+            
+            // Add user message to chat
+            addChatMessage('user', prompt);
+            
+            // Clear input
+            document.getElementById('llmPrompt').value = '';
+            document.getElementById('llmCharCount').textContent = '0';
+            
+            try {
+                const responseLength = document.getElementById('responseLength').value;
+                const temperature = document.getElementById('temperature').value;
+                
+                const response = await fetch('/api/uzbek-llm', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        max_length: parseInt(responseLength),
+                        temperature: parseFloat(temperature)
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    addChatMessage('ai', result.response);
+                    showNotification('Javob qabul qilindi', 'success');
+                } else {
+                    addChatMessage('ai', `Xato: ${result.error}`);
+                    showNotification(`Xato: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addChatMessage('ai', `Ulanish xatosi: ${error.message}`);
+                showNotification(`Ulanish xatosi: ${error.message}`, 'error');
+            }
+        });
+        
+        // Add message to chat
+        function addChatMessage(sender, text) {
+            const chatHistory = document.getElementById('chatHistory');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message chat-${sender}`;
+            messageDiv.innerHTML = `
+                <strong>${sender === 'user' ? 'Siz' : 'AI Platform'}:</strong>
+                <div class="mt-1">${text}</div>
+            `;
+            
+            chatHistory.appendChild(messageDiv);
+            chatMessages.push({ sender, text, timestamp: new Date() });
+            
+            // Scroll to bottom
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+        
+        // Clear chat
+        document.getElementById('clearChat').addEventListener('click', function() {
+            document.getElementById('chatHistory').innerHTML = `
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>AI Platform:</strong> Salom! Men sizga qanday yordam bera olaman? O'zbek tilida istalgan savolingizni bering.
+                </div>
+            `;
+            chatMessages = [];
+            showNotification('Suhbat tozalandi', 'success');
+        });
+        
+        // Export chat
+        document.getElementById('exportChat').addEventListener('click', function() {
+            let chatText = 'AI Platform - Suhbat Tarixi\n\n';
+            chatText += '='.repeat(50) + '\n\n';
+            
+            chatMessages.forEach(msg => {
+                const sender = msg.sender === 'user' ? 'Siz' : 'AI Platform';
+                const time = msg.timestamp.toLocaleTimeString('uz-UZ');
+                chatText += `[${time}] ${sender}:\n${msg.text}\n\n`;
+            });
+            
+            const blob = new Blob([chatText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `suhbat_${new Date().toISOString().slice(0, 10)}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Suhbat tarixi saqlandi', 'success');
+        });
+        
+        // Sample prompt buttons
+        document.querySelectorAll('.sample-prompt').forEach(button => {
+            button.addEventListener('click', function() {
+                const prompt = this.getAttribute('data-prompt');
+                document.getElementById('llmPrompt').value = prompt;
+                document.getElementById('llmCharCount').textContent = prompt.length;
+                document.getElementById('llmPrompt').focus();
+            });
+        });
+        
+        // Language selector
+        document.querySelectorAll('[data-lang]').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+        
+        // Change language (placeholder function)
+        function changeLanguage(lang) {
+            // This would be implemented with a proper i18n system
+            showNotification(`Til ${lang} ga o'zgartirildi (demo rejimi)`, 'info');
+            document.querySelector('#languageDropdown').innerHTML = `
+                <i class="fas fa-globe me-1"></i> ${lang === 'uz' ? 'Oʻzbek' : lang === 'en' ? 'English' : 'Русский'}
+            `;
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('AI Platformga xush kelibsiz!', 'success');
+        });
+    </script>
+</body>
+</html>
